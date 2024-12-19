@@ -5,7 +5,8 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-    public static final String TOKEN = "";
+    //      eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiYWxvbmFAZ21haWwuY29tIiwiaXNzIjoiUmVndWxhaXQiLCJleHAiOjE3MzUyMjA5NzAsImlhdCI6MTczNDYyMDk3MH0.vTRlszGNduxHBcCX5WyTQ6pwouEdNic5Qp75AODNfqw
+    public static final String TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiYWxvbmFAZ21haWwuY29tIiwiaXNzIjoiUmVndWxhaXQiLCJleHAiOjE3MzUyMjA5NzAsImlhdCI6MTczNDYyMDk3MH0.vTRlszGNduxHBcCX5WyTQ6pwouEdNic5Qp75AODNfqw";
     public static final String AUTHORIZATION = "Authorization";
 
     //public static final String TOKEN = System.getenv("TOKEN");

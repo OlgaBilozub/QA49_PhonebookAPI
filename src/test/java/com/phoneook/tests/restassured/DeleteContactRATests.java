@@ -34,28 +34,28 @@ public class DeleteContactRATests extends TestBase {
                 .when()
                 .post("contacts")
                 .then()
-                .log().all()
-              //  .assertThat().statusCode(200)
+                //.log().all()
+               // .assertThat().statusCode(200)
                 .extract().path("message");
-        System.out.println("Message :" + message);
-        //Contact was added! ID: 33d9732b-27bd-46b6-88f4-46951b691a75
+       // System.out.println("Message :" + message);
+        //Contact was added! ID: c60727aa-09ea-4911-9cc2-53970b2986ac
         String[] split = message.split(": ");
         id = split[1];
     }
 
     @Test
     public void deleteContactSuccessTest() {
-        String message =
+       // String message =
         given()
                 .header(AUTHORIZATION, TOKEN)
                 .when()
                 .delete("contacts/" + id)
                 .then()
                 .assertThat().statusCode(200)
-                .assertThat().body("message", equalTo("Contact was deleted!"))
-          .extract().path("message");
-        System.out.println(message);
-        //Contact was deleted!
+               .assertThat().body("message", equalTo("Contact was deleted!"));
+         // .extract().path("message");
+       // System.out.println(message);
+
     }
 
     @Test
@@ -64,7 +64,7 @@ public class DeleteContactRATests extends TestBase {
         given()
                 .header(AUTHORIZATION, TOKEN)
                 .when()
-                .delete("contacts/33d9732b-27bd-46b6-88f4-46951b691a66")
+                .delete("contacts/c60727aa-09ea-4911-9cc2-53970b2986ac44")
                 .then()
                 .assertThat().statusCode(400)
                 .assertThat().body("message", containsString("not found in your contacts"));

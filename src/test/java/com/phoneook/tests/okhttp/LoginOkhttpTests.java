@@ -36,13 +36,17 @@ public class LoginOkhttpTests {
 
         AuthResponseDto responseDto = gson.fromJson(response.body().string(), AuthResponseDto.class);
         System.out.println(responseDto.getToken());
+
+
+//      eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiYWxvbmFAZ21haWwuY29tIiwiaXNzIjoiUmVndWxhaXQiLCJleHAiOjE3MzUyMjA5NzAsImlhdCI6MTczNDYyMDk3MH0.vTRlszGNduxHBcCX5WyTQ6pwouEdNic5Qp75AODNfqw
+
     }
 
     @Test
     public void loginWithErrorPassword() throws IOException {
         AuthRequestDto auth = AuthRequestDto.builder()
-                .username("alona@gmail.com")
-                .password("123456Aa")
+                .username("alonagmail.com")
+                .password("123456Aa!")
                 .build();
 
         RequestBody body = RequestBody.create(gson.toJson(auth), JSON);

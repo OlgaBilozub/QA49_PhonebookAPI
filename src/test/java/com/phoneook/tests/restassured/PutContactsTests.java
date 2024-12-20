@@ -59,8 +59,8 @@ public class PutContactsTests extends TestBase {
                 .when()
                 .put("contacts/")
                 .then()
-                .assertThat().statusCode(200);
-        //    .assertThat().body("message", equalTo("Contact was updated!"));
+                .assertThat().statusCode(200)
+          .assertThat().body("message", equalTo("Contact was updated"));
     }
 
     @Test
@@ -82,39 +82,41 @@ public class PutContactsTests extends TestBase {
                 .when()
                 .put("contacts")
                 .then()
-                .assertThat().statusCode(400);
-        //.assertThat().body("message", containsString("not found in your contacts"));
+                .assertThat().statusCode(400)
+                .assertThat().body("message", containsString("not found in your contacts"));
     }
 
     @Test
     public void updateContactUnauthorizedTest() {
         ContactDto updatedContactDto = ContactDto.builder()
-                .id(id)
+                .id("unauthorized")
                 .name("Olga")
-                .lastName("Bil")
+                .lastName("Olga")
                 .email("fffffff@gm.com")
                 .phone("1234567890")
-                .address("unauthorized")
+                .address("Lust.doroga")
                 .description("")
                 .build();
 
         given()
+                .header(AUTHORIZATION,TOKEN)
                 .body(updatedContactDto)
                 .contentType(ContentType.JSON)
                 .when()
                 .put("contacts")
                 .then()
-                .assertThat().statusCode(403);
-               // .assertThat().body("message", containsString("Unauthorized"));
+                .assertThat().statusCode(400)
+                .assertThat().body("message", containsString("Contact with id: unauthorized not found in your contacts!"));
     }
     @Test
-    public void updateContactNotFoundTest() {
+    public void updateContactWithWrongPhoneTest() {
         ContactDto updatedContactDto = ContactDto.builder()
+
                 .id("0")
                 .name("Not")
                 .lastName("not")
                 .email("fffffff@gm.com")
-                .phone("111111111")
+                .phone("f123")
                 .address("not")
                 .description("not")
                 .build();
@@ -126,8 +128,9 @@ public class PutContactsTests extends TestBase {
                 .when()
                 .put("contacts")
                 .then()
-                .assertThat().statusCode(400);
-              //  .assertThat().body("message", containsString("not found"));
+                .assertThat().statusCode(400)
+               .assertThat().body("message.phone",
+                        containsString("Phone number must contain only digits! And length min 10, max 15!"));
     }
     @Test
     public void updateContactWithEmptyFieldsTest() {
@@ -149,7 +152,7 @@ public class PutContactsTests extends TestBase {
                 .put("contacts")
                 .then()
                 .assertThat().statusCode(400);
-            //    .assertThat().body("message", containsString("Validation failed"));
+              // .assertThat().body("message", containsString("<{lastName=must not be blank, address=must not be blank, phone=Phone number must contain only digits! And length min 10, max 15!, name=must not be blank}>"));
     }
 
 }
